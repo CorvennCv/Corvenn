@@ -1,0 +1,58 @@
+
+> web@0.2.0 build
+> next build
+
+▲ Next.js 16.2.3 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  · optimizePackageImports
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 76s
+  Running TypeScript ...
+  Finished TypeScript in 53s ...
+  Collecting page data using 3 workers ...
+[Playwright Pool] Skipping pre-warm during build
+  Generating static pages using 3 workers (0/22) ...
+  Generating static pages using 3 workers (5/22) 
+  Generating static pages using 3 workers (10/22) 
+  Generating static pages using 3 workers (16/22) 
+✓ Generating static pages using 3 workers (22/22) in 1269ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /api/auth/[...nextauth]
+├ ƒ /api/extension/autofill
+├ ƒ /api/extension/download
+├ ƒ /api/extension/jobs
+├ ƒ /api/extension/resumes
+├ ƒ /api/extension/version
+├ ƒ /api/health
+├ ƒ /api/resumes/[id]/pdf
+├ ƒ /auth/verify
+├ ƒ /dashboard
+├ ƒ /dashboard/ai
+├ ƒ /dashboard/preferences
+├ ƒ /dashboard/profile
+├ ƒ /dashboard/resumes/[id]
+├ ƒ /dashboard/security
+├ ƒ /dashboard/tracker
+├ ƒ /forgot-password
+├ ○ /icon.svg
+├ ƒ /login
+├ ƒ /p/[id]
+├ ƒ /privacy
+├ ƒ /register
+├ ƒ /reset-password
+├ ƒ /resumes/[id]/export
+└ ƒ /terms
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

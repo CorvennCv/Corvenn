@@ -1,0 +1,13 @@
+<svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rounded square background -->
+  <rect width="56" height="56" rx="13" fill="#17171B"/>
+
+  <!-- Geometric C-ring brand mark -->
+  <path
+    d="M40.3,38.3 A16,16 0 1,1 40.3,17.7 L34.7,22.3 A8.8,8.8 0 1,0 34.7,33.7 Z"
+    fill="#14B8A6"
+  />
+
+  <!-- Cursor accent bar -->
+  <rect x="42" y="24" width="2.5" height="8" rx="0.8" fill="#14B8A6"/>
+</svg>
