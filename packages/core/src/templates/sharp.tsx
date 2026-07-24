@@ -660,12 +660,21 @@ export const SharpTemplate = React.memo(function SharpTemplate({
 
       // ── Profiles / Social ────────────────────────────────────────────────────
       case "profiles": {
-        return sections.profiles.length > 0 ? (
+        const items = itemIds
+          ? sections.profiles?.filter((p) => itemIds.includes(p.id))
+          : sections.profiles
+        return items && items.length > 0 ? (
           <section key={id} data-section-id={id} className="section-block">
-            <SectionHeading>{t("social")}</SectionHeading>
+            <SectionHeading>
+              {t("social")} {isContinued && <ContinuedBadge />}
+            </SectionHeading>
             <div className="mt-1 flex flex-wrap gap-x-5 gap-y-0.5">
-              {sections.profiles.map((p, i) => (
-                <span key={i} className="section-item text-[0.85em] opacity-80">
+              {items.map((p, i) => (
+                <span
+                  key={p.id || i}
+                  data-item-id={p.id}
+                  className="section-item text-[0.85em] opacity-80"
+                >
                   {p.network && (
                     <span className="font-semibold mr-1">{p.network}:</span>
                   )}
