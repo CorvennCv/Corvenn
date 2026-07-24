@@ -87,22 +87,13 @@ export const ClassicTemplate = React.memo(function ClassicTemplate({
 
   // Dotted-rule section heading matching the reference design
   const SectionHeading = ({ children }: { children: React.ReactNode }) => (
-    <div className="mb-3">
+    <div className="mb-2 border-b border-dashed border-gray-500">
       <h2
-        className="font-bold uppercase tracking-[0.12em] text-[0.72em] mb-1"
+        className="font-bold uppercase  text-[0.72em] "
         style={{ color: "var(--primary)", fontSize: sectionTitleSizeStyle }}
       >
         {children}
       </h2>
-      {/* Dotted rule */}
-      <div
-        className="w-full"
-        style={{
-          borderBottom: "1px dotted",
-          borderColor: "var(--primary)",
-          opacity: 0.4,
-        }}
-      />
     </div>
   )
 
@@ -333,17 +324,16 @@ export const ClassicTemplate = React.memo(function ClassicTemplate({
                 <span key={i} data-item-id={l.id} className="section-item">
                   {l.name}
                   {l.level
-                    ? ` (${
-                        l.level >= 80
-                          ? "Native"
-                          : l.level >= 60
-                          ? "Fluent"
-                          : l.level >= 40
+                    ? ` (${l.level >= 80
+                      ? "Native"
+                      : l.level >= 60
+                        ? "Fluent"
+                        : l.level >= 40
                           ? "Advanced"
                           : l.level >= 20
-                          ? "Intermediate"
-                          : "Beginner"
-                      })`
+                            ? "Intermediate"
+                            : "Beginner"
+                    })`
                     : ""}
                   {i < items.length - 1 && (
                     <span className="mx-1.5 opacity-50"> •</span>
@@ -601,12 +591,21 @@ export const ClassicTemplate = React.memo(function ClassicTemplate({
 
       // ── Profiles / Social ────────────────────────────────────────────────────
       case "profiles": {
-        return sections.profiles.length > 0 ? (
+        const items = itemIds
+          ? sections.profiles?.filter((p) => itemIds.includes(p.id))
+          : sections.profiles
+        return items && items.length > 0 ? (
           <section key={id} data-section-id={id} className="section-block">
-            <SectionHeading>{t("social")}</SectionHeading>
+            <SectionHeading>
+              {t("social")} {isContinued && <ContinuedBadge />}
+            </SectionHeading>
             <div className="flex flex-wrap gap-x-5 gap-y-1">
-              {sections.profiles.map((p, i) => (
-                <div key={i} className="section-item flex items-center gap-1.5 text-[0.85em] opacity-80">
+              {items.map((p, i) => (
+                <div
+                  key={p.id || i}
+                  data-item-id={p.id}
+                  className="section-item flex items-center gap-1.5 text-[0.85em] opacity-80"
+                >
                   <SocialIcon
                     network={p.icon || undefined}
                     url={p.icon ? undefined : p.url || ""}
@@ -683,7 +682,7 @@ export const ClassicTemplate = React.memo(function ClassicTemplate({
 
   return (
     <div
-      className="classic-template min-h-full flex flex-col"
+      className="classic-template tracking-tight min-h-full flex flex-col"
       style={{
         fontFamily: typography.fontFamily,
         fontSize: `${typography.fontSize}pt`,
@@ -694,10 +693,10 @@ export const ClassicTemplate = React.memo(function ClassicTemplate({
     >
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       {showHeader && (
-        <header className="mb-5">
+        <header className="mb-2">
           {/* Name */}
           <h1
-            className="font-bold leading-none"
+            className="font-extrabold leading-none"
             style={{ color: "var(--primary)", fontSize: nameSizeStyle || "2em" }}
           >
             {basics.name || "Your Name"}
@@ -706,7 +705,7 @@ export const ClassicTemplate = React.memo(function ClassicTemplate({
           {/* Headline */}
           {basics.headline && (
             <p
-              className="font-bold uppercase tracking-widest mt-0.5 text-[0.78em]"
+              className="font-bold uppercase tracking-widest text-[0.78em]"
               style={{ fontSize: headlineSizeStyle }}
             >
               {basics.headline}
@@ -714,7 +713,7 @@ export const ClassicTemplate = React.memo(function ClassicTemplate({
           )}
 
           {/* Contact row — 3 items spread across the width */}
-          <div className="mt-2 flex flex-wrap gap-x-6 gap-y-0.5 text-[0.82em] opacity-70">
+          <div className="mb-3 flex flex-wrap gap-x-6 gap-y-0.5 text-[0.82em] opacity-70">
             {basics.email && <span>{basics.email}</span>}
             {basics.phone && <span>{basics.phone}</span>}
             {basics.location && <span>{basics.location}</span>}
@@ -723,11 +722,6 @@ export const ClassicTemplate = React.memo(function ClassicTemplate({
                 {basics.website}
               </a>
             )}
-            {sections.profiles?.map((p, i) => (
-              <span key={i}>
-                {p.username ? `@${p.username}` : p.url}
-              </span>
-            ))}
           </div>
 
           {/* Photo (optional) */}
@@ -756,14 +750,7 @@ export const ClassicTemplate = React.memo(function ClassicTemplate({
           )}
 
           {/* Top dotted rule under contact row */}
-          <div
-            className="mt-3 w-full"
-            style={{
-              borderBottom: "1px dotted",
-              borderColor: "var(--primary)",
-              opacity: 0.35,
-            }}
-          />
+
         </header>
       )}
 

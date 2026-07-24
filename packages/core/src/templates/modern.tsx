@@ -442,19 +442,24 @@ export const ModernTemplate = React.memo(function ModernTemplate({ data, content
       }
 
       case "profiles": {
-        return sections.profiles.length > 0 && (
+        const items = itemIds
+          ? sections.profiles?.filter((p) => itemIds.includes(p.id))
+          : sections.profiles
+        return items && items.length > 0 ? (
           <section key={id} data-section-id={id} className="section-block">
-            <SectionHeading className="mb-4">{t("social")}</SectionHeading>
+            <SectionHeading className="mb-4">
+              {t("social")} {isContinued && <span className="text-[10px] opacity-40 lowercase ml-2">{t("continued")}</span>}
+            </SectionHeading>
             <div className="flex flex-wrap gap-3">
-              {sections.profiles.map((p, index) => (
-                <div key={index} className="section-item flex items-center gap-1.5 text-xs">
+              {items.map((p, index) => (
+                <div key={p.id || index} data-item-id={p.id} className="section-item flex items-center gap-1.5 text-xs">
                   <SocialIcon network={p.icon || undefined} url={p.icon ? undefined : (p.url || "")} style={{ height: 18, width: 18 }} />
                   <span className="font-semibold">{p.username || p.network}</span>
                 </div>
               ))}
             </div>
           </section>
-        )
+        ) : null
       }
 
       default: {
